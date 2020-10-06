@@ -1,9 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {TextInput} from 'react-native';
 import styles from './styles.js';
 
 const Input = () => {
-  return <TextInput style={styles.tImp}>Type Here!</TextInput>;
+  const [value, onChange] = useState('');
+  return (
+    <TextInput
+      style={styles.tImp}
+      placeholder="Type Here!"
+      onChange={(text) => onChange(text)}
+      value={value}
+    />
+  );
 };
-
 export default Input;
