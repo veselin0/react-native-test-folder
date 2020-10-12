@@ -15,23 +15,21 @@ const styles = StyleSheet.create({
 
 const FlatListBasics = () => {
   return (
-    <View>
+    <View style={styles.container}>
       <FlatList
         data={[
           {key: 'Devin'},
-          {key: 'Dani'},
-          {key: 'Domi'},
-          {key: 'Jack'},
+          {key: 'Dan'},
+          {key: 'Dominic'},
+          {key: 'Jackson'},
           {key: 'James'},
           {key: 'Joel'},
           {key: 'John'},
-          {key: 'Jill'},
-          {key: 'Jimmi'},
-          {key: 'julie'},
-          {key: 'Gocho'},
-          {key: 'Kochev'},
+          {key: 'Jillian'},
+          {key: 'Jimmy'},
+          {key: 'Julie'},
         ]}
-        renderItem={({item}) => <Text styles={styles.item}>{item.key}</Text>}
+        renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
       />
     </View>
   );
