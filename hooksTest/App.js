@@ -1,20 +1,11 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, Button} from 'react-native';
-import {AppRegistry} from 'react-native';
+import React from 'react';
+import {View} from 'react-native';
+import GermanList from './germanGuru/GermanLIst';
 
-const App = () => {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    AppRegistry.getAppKeys('Text').concat(count);
-  });
-
+export default function App() {
   return (
     <View>
-      <Text>You clicked {count} times</Text>
-      <Button title="Click me!" onPress={() => setCount(count + 1)} />
+      <GermanList />
     </View>
   );
-};
-
-export default App;
+}
