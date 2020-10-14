@@ -1,31 +1,44 @@
 import React, {useState} from 'react';
-import {View, TextInput, Button, StyleSheet} from 'react-native';
+import {View, TextInput, Button, StyleSheet, Modal} from 'react-native';
 
 export default function GoalInput(props) {
-  const [enteredGoal, setEnteredgoal] = useState('');
+  const [enteredGoal, setEnteredGoal] = useState('');
 
   const goalInputHandler = (enteredText) => {
-    setEnteredgoal(enteredText);
+    setEnteredGoal(enteredText);
+  };
+
+  const addGoalHandler = () => {
+    props.onAddGoal(enteredGoal);
+    setEnteredGoal('');
   };
 
   return (
-    <View style={styles.inputContainer}>
-      <TextInput
-        placeholder="Course Goal"
-        style={styles.input}
-        onChangeText={goalInputHandler}
-        value={enteredGoal}
-      />
-      <Button title="ADD" onPress={() => props.onAddGoal(enteredGoal)} />
-    </View>
+    <Modal visible={props.visible} animationType="slide">
+      <View style={styles.inputContainer}>
+        <TextInput
+          placeholder="Course Goal"
+          style={styles.input}
+          onChangeText={goalInputHandler}
+          value={enteredGoal}
+        />
+        <View style={styles.buttonContainer}>
+          <View style={styles.button}>
+            <Button title="CANCEL" color="red" onPress={props.onCancel} />
+          </View>
+          <View style={styles.button}>
+            <Button title="ADD" onPress={addGoalHandler} />
+          </View>
+        </View>
+      </View>
+    </Modal>
   );
 }
 
 const styles = StyleSheet.create({
   inputContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignContent: 'center',
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
   },
   input: {
@@ -33,5 +46,14 @@ const styles = StyleSheet.create({
     borderColor: 'tomato',
     borderWidth: 5,
     padding: 10,
+    marginBottom: 30,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '60%',
+  },
+  button: {
+    width: '40%',
   },
 });
