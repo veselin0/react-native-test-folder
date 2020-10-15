@@ -7,12 +7,22 @@
  */
 
 import React from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Text, Button, Alert} from 'react-native';
 
 export default function App() {
+  const onPressHandler = () => {
+    Alert.alert('button pressed');
+  };
+
   return (
     <View style={styles.screen}>
       <Text>Gocho</Text>
+      <Button
+        onPress={onPressHandler}
+        title="Learn More"
+        color="#841584"
+        accessibilityLabel="Learn More about this purple button"
+      />
     </View>
   );
 }
