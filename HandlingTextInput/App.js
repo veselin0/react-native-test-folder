@@ -1,24 +1,57 @@
+import 'react-native-get-random-values';
 import React, {useState} from 'react';
-import {Text, TextInput, View} from 'react-native';
+import {View, StyleSheet, FlatList, Alert} from 'react-native';
+import {v4 as uuidv4} from 'uuid';
 
-const App = () => {
-  const [text, setText] = useState('');
+import Header from './components/Header';
+import ListItem from './components/ListItem.js';
+import AddItem from './components/AddItem';
+
+export default function App() {
+  const [items, setItems] = useState([
+    {id: uuidv4(), text: 'milk'},
+    {id: uuidv4(), text: 'eggs'},
+    {id: uuidv4(), text: 'bread'},
+    {id: uuidv4(), text: 'juice'},
+  ]);
+
+  const deleteItem = (id) => {
+    setItems((previousItems) => {
+      return previousItems.filter((item) => item.id !== id);
+    });
+  };
+
+  const addItem = (text) => {
+    if (!text) {
+      Alert.alert('Error', 'Please, enter an item', '', [
+        {text: 'OK'},
+        {cancelable: true},
+      ]);
+    } else {
+      setItems((previousItems) => {
+        return [{id: uuidv4(), text}, ...previousItems];
+      });
+      text = '';
+    }
+  };
+
   return (
-    <View style={{padding: 10}}>
-      <TextInput
-        style={{height: 40}}
-        placeholder="Type here to translate!"
-        onChangeText={(text) => setText(text)}
-        defaultValue={text}
+    <View style={styles.container}>
+      <Header />
+      <AddItem addItem={addItem} />
+      <FlatList
+        data={items}
+        renderItem={({item}) => (
+          <ListItem item={item} deleteItem={deleteItem} />
+        )}
       />
-      <Text style={{padding: 40, fontSize: 42}}>
-        {text
-          .split(' ')
-          .map((word) => word && '🍕')
-          .join(' ')}
-      </Text>
     </View>
   );
-};
+}
 
-export default App;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 60,
+  },
+});
